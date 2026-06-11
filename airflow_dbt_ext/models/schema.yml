@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: stg_movies
+    description: "Staged TMDB movie records with cleaned types"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: title
+        tests:
+          - not_null
+      - name: popularity
+        tests:
+          - not_null
+      - name: original_language
+        tests:
+          - accepted_values:
+              config:
+                severity: warn
+              arguments:  
+                values: ['en', 'fr', 'es', 'de', 'ja', 'ko', 'zh', 'it', 'pt', 'ru', 'hi', 'tr', 'ar', 'th', 'sv', 'nl', 'pl', 'da', 'fi', 'no']
+                quote: true
+
+
+  - name: int_movies_enriched
+    description: "Movies with derived popularity_tier and rating_bucket fields"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: popularity_tier
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['high', 'medium', 'low']
+      - name: rating_bucket
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['well_rated', 'average', 'low_rated']
+
+  - name: fct_movies
+    description: "Final movies fact table — primary analytical output"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+  - name: agg_movies_by_language
+    description: "Final movies fact table — primary analytical output grouped by original language"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique

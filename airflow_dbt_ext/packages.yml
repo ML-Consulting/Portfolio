@@ -1,0 +1,15 @@
+packages:
+  # core utilities (almost universal)
+  - package: dbt-labs/dbt_utils
+    version: 1.3.0
+
+  # common extra packages (seen often in mature projects)
+  - package: dbt-labs/codegen
+    version: 0.12.1
+
+  - package: brooklyn-data/dbt_artifacts
+    version: 2.10.0
+
+  # example internal shared macros
+  #- git: "https://github.com/my-org/dbt-internal-utils.git"
+  #  revision: v0.3.0

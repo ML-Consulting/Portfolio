@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+  - name: stg_movies_latest
+    database: gmail-346520
+    schema: main
+    tables:
+      - name: stg_movies_latest
+        description: "Raw TMDB movie records loaded by the Airflow bronze/silver pipeline"
+        columns:
+          - name: id
+            description: "TMDB movie ID (primary key)"
+            tests:
+              - not_null
+              - unique
+          - name: title
+            tests:
+              - not_null
+          - name: popularity
+            tests:
+              - not_null
+          - name: vote_average
+          - name: vote_count
+          - name: release_date
+          - name: original_language

@@ -1,0 +1,11 @@
+tmdb_pipeline:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('DBT_PROJECT_ID') }}"
+      dataset: "{{ env_var('DBT_DATASET', 'dbt_dev') }}"
+      location: "{{ env_var('DBT_BQ_LOCATION', 'US') }}"
+      threads: 4
+      timeout_seconds: 300
