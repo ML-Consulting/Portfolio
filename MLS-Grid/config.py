@@ -2,10 +2,12 @@
 from google.cloud import secretmanager
 from google.cloud import bigquery
 import logging
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Config(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+
     project_id: str
     dataset: str
     table: str
