@@ -23,7 +23,7 @@ class GridDTO(BaseModel):
     @classmethod
     def validate_county(cls, v) -> str:
         if v and v.strip() not in ['Seminole', 'Orange']:
-            raise ValueError('Invalid county')
+            raise ValueError(f'Invalid county: {v}')
         return v.strip() if v else v
 
     @staticmethod
