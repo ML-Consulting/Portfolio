@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import time
 import random
 
-from .dto import GridDTO
+from dto import GridDTO
 import requests
 import logging
 
@@ -73,8 +73,8 @@ def fetch_mls_data_recursive(url: str, headers: dict, payload: dict, all_items=N
     # Base case: no more pages
     if '@odata.nextLink' not in resp:
         all_valid_items, all_invalid_items = GridDTO.process_records_batch(all_items)  # Validate each item and log any issues
-        if len(all_items) > 0 and len(all_invalid_items) / len(all_items) > 0.01:
-            raise Exception(f"Too many invalid records: {len(all_invalid_items)} of {len(all_items)}")
+        if len(all_items) != (len(all_invalid_items) + len(all_valid_items)):
+            raise Exception(f"Total records mismatch - total records: {len(all_items)}, invalid records: {len(all_invalid_items)}, valid records: {len(all_valid_items)}")
         if len(all_valid_items) == 0:
             raise Exception("No valid records returned from MLS API.")
         logging.info(f"Total valid records: {len(all_valid_items)}, Total invalid records: {len(all_invalid_items)}") # checking invalid items count
